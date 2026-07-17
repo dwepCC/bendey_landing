@@ -12,6 +12,7 @@ import {
   clearStoredReferral,
 } from './composables/useReferral.js'
 import WhatsAppButton from './components/WhatsAppButton.vue'
+import AssistantChat from './components/AssistantChat.vue'
 import RegisterModal from './components/RegisterModal.vue'
 
 const { plans, defaultSignupPlan } = usePlans()
@@ -68,6 +69,7 @@ function openRegister(plan = null) {
 <template>
   <RouterView @register="openRegister" />
   <WhatsAppButton />
+  <AssistantChat @register="openRegister" />
   <RegisterModal
     :open="registerOpen"
     :plan="selectedPlan"

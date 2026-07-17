@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
         '/api': {
           target: backendUrl,
           changeOrigin: true,
+          ws: true, // necesario para el WebSocket del chat (/api/public/assistant/chat/ws)
         },
         '/downloads': {
           target: backendUrl,
