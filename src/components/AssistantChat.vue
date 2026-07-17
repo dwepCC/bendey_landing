@@ -14,8 +14,8 @@ const notice = ref('') // aviso transitorio (errores)
 const status = ref('') // '' | bot | needs_human | human | closed
 const threadEl = ref(null)
 
-// Persona con nombre humano (con la foto, vende más que "Asistente Bendey").
-const agentName = 'Valentina'
+// Nombre del asistente (sin nombre de persona por ahora).
+const agentName = 'Asistente de Bendey'
 const avatarSrc = '/asesora.png' // avatar del asistente (bot)
 
 // Avatar del ASESOR humano: distinto al del bot, para que se note quién responde
@@ -29,7 +29,7 @@ function avatarFor(role) {
   return role === 'agent' ? humanAvatarSrc : avatarSrc
 }
 
-const GREETING = `¡Hola! 👋 Soy ${agentName}, del equipo de Bendey. Pregúntame por los módulos, planes, precios o cómo empezar. Si prefieres, te derivo con un asesor.`
+const GREETING = `¡Hola! 👋 Soy el ${agentName}. Pregúntame por los módulos, planes, precios o cómo empezar. Si prefieres, te derivo con un asesor.`
 
 // Estado legible: el cliente SIEMPRE sabe con quién habla.
 const withHuman = computed(() => status.value === 'human')
@@ -42,13 +42,28 @@ const headerSubtitle = computed(() => {
   return 'Respuesta al instante'
 })
 
-const suggestions = [
-  '¿Qué es Bendey?',
-  '¿Qué planes y precios tienen?',
-  '¿Tiene facturación electrónica (SUNAT)?',
-  '¿Cómo empiezo?',
-  'Quiero una demostración',
+// Menú de opciones (los IDs coinciden con el servidor: orchestrator.ResolveSelection).
+const MENU = [
+  { id: 'menu:conocer', label: '🚀 Conocer Bendey' },
+  { id: 'menu:planes', label: '💰 Planes y precios' },
+  { id: 'menu:demo', label: '👀 Probar la demo' },
+  { id: 'menu:prueba', label: '🎁 Prueba gratis (1 mes)' },
+  { id: 'menu:pagos', label: '💳 Formas de pago' },
+  { id: 'menu:asesor', label: '💬 Hablar con un asesor' },
 ]
+const serverMenu = ref([]) // menú que el servidor pide mostrar (acción show_menu)
+
+// Menú activo: el que envía el servidor, o el inicial cuando el hilo está vacío.
+const activeMenu = computed(() => {
+  if (serverMenu.value.length) return serverMenu.value.map((o) => ({ id: o.id, label: o.title }))
+  if (messages.value.length === 0 && !pending.value && !loading.value) return MENU
+  return []
+})
+
+function pickMenu(opt) {
+  serverMenu.value = []
+  send(opt.id, opt.label)
+}
 
 // Sesión persistente por navegador (mantiene el hilo entre recargas).
 const SESSION_KEY = 'bendey_chat_session'
@@ -180,12 +195,13 @@ function toggle() {
   scrollDown()
 }
 
-async function send(preset) {
+async function send(preset, displayText) {
   const text = (typeof preset === 'string' ? preset : input.value).trim()
   if (!text || loading.value || isClosed.value) return
   input.value = ''
   notice.value = ''
-  pending.value = text
+  serverMenu.value = []
+  pending.value = displayText || text // muestra la etiqueta amable, no el id crudo
   loading.value = true
   trackEvent('chat_message')
   scrollDown()
@@ -195,6 +211,7 @@ async function send(preset) {
       body: JSON.stringify({ session_id: sessionId.value, text }),
     })
     if (data.silent) trackEvent('chat_handoff_request')
+    serverMenu.value = data.menu || []
     await reload()
   } catch (e) {
     notice.value = e.message || 'No pude responder ahora. Intenta de nuevo en un momento.'
@@ -242,7 +259,7 @@ function goRegister() {
         />
         <div>
           <p class="text-sm font-semibold leading-tight">
-            {{ withHuman ? 'Asesor Bendey' : agentName + ' · Asesora Bendey' }}
+            {{ withHuman ? 'Asesor Bendey' : agentName }}
           </p>
           <p class="flex items-center gap-1 text-[11px] leading-tight text-white/70">
             <span
@@ -312,15 +329,15 @@ function goRegister() {
         </div>
       </div>
 
-      <!-- Preguntas frecuentes (solo al inicio) -->
-      <div v-if="messages.length === 0 && !pending && !loading" class="flex flex-wrap gap-2 pt-1">
+      <!-- Menú de opciones (al inicio o cuando el bot lo pide) -->
+      <div v-if="activeMenu.length" class="flex flex-col gap-2 pt-1">
         <button
-          v-for="q in suggestions"
-          :key="q"
-          @click="send(q)"
-          class="rounded-full border border-blue-200 bg-white px-3 py-1.5 text-xs font-medium text-blue-700 transition hover:bg-blue-50"
+          v-for="opt in activeMenu"
+          :key="opt.id"
+          @click="pickMenu(opt)"
+          class="w-full rounded-xl border border-blue-200 bg-white px-3 py-2 text-left text-sm font-medium text-blue-700 transition hover:bg-blue-50"
         >
-          {{ q }}
+          {{ opt.label }}
         </button>
       </div>
 
