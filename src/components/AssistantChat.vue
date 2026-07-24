@@ -1,7 +1,7 @@
 <script setup>
 import { ref, nextTick, onMounted, onUnmounted, computed } from 'vue'
 import { apiFetch } from '../composables/useApi.js'
-import { trackEvent } from '../config/analytics.js'
+import { trackEvent, trackConversion } from '../config/analytics.js'
 
 const emit = defineEmits(['register'])
 
@@ -210,7 +210,13 @@ async function send(preset, displayText) {
       method: 'POST',
       body: JSON.stringify({ session_id: sessionId.value, text }),
     })
-    if (data.silent) trackEvent('chat_handoff_request')
+    if (data.silent) {
+      trackEvent('chat_handoff_request')
+      // El bot escaló a un asesor: es un prospecto real. Como evento estándar,
+      // Meta puede optimizar campañas hacia gente que pide contacto — útil sobre
+      // todo al inicio, cuando aún hay pocos registros para optimizar.
+      trackConversion('Lead', { content_name: 'Chat handoff' })
+    }
     serverMenu.value = data.menu || []
     await reload()
   } catch (e) {

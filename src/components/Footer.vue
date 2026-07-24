@@ -67,15 +67,65 @@ defineProps({
                   WhatsApp: {{ PHONE_DISPLAY }}
                 </a>
               </li>
-              <li>Correo: contacto@{{ brand.domain }}</li>
+              <li>
+                <a href="mailto:hola@gestionweb.cloud" class="transition hover:text-amber-400">
+                  Correo: hola@gestionweb.cloud
+                </a>
+              </li>
               <li>Atención: Lunes a Sábado</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">
+              Legal
+            </h3>
+            <ul class="mt-4 space-y-2">
+              <li>
+                <RouterLink to="/terminos" class="text-slate-300 transition hover:text-bendey-gold">
+                  Términos y Condiciones
+                </RouterLink>
+              </li>
+              <li>
+                <a
+                  href="https://gestionweb.cloud/privacidad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-slate-300 transition hover:text-bendey-gold"
+                >
+                  Política de privacidad
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://gestionweb.cloud/eliminacion-datos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-slate-300 transition hover:text-bendey-gold"
+                >
+                  Eliminación de datos
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://gestionweb.cloud/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-slate-300 transition hover:text-bendey-gold"
+                >
+                  Plataforma GestionWeb Cloud
+                </a>
+              </li>
             </ul>
           </div>
         </div>
       </div>
 
       <div class="mt-10 border-t border-slate-700 pt-6 text-center text-sm text-slate-400">
-        © {{ new Date().getFullYear() }} {{ brand.fullName }}
+        <p>© {{ new Date().getFullYear() }} {{ brand.fullName }}</p>
+        <p class="mt-1 text-xs text-slate-500">
+          Un producto de Gestión Web — GestionWeb Cloud, operado por sermush E.I.R.L. · RUC 20612129712
+        </p>
       </div>
     </div>
   </footer>

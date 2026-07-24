@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue'
 import { apiFetch } from '../composables/useApi.js'
 import { getStoredReferral, normalizeReferralCode } from '../composables/useReferral.js'
+import { trackConversion } from '../config/analytics.js'
 
 const props = defineProps({
   plan: { type: Object, default: null },
@@ -149,6 +150,14 @@ async function submit() {
       }),
     })
     success.value = res
+    // Conversión real: es lo que Meta usa para optimizar la entrega de anuncios
+    // hacia gente que se registra, no solo que hace clic. Sin datos personales:
+    // solo el plan y su precio.
+    trackConversion('CompleteRegistration', {
+      content_name: effectivePlan.value?.name || 'Registro',
+      currency: 'PEN',
+      value: Number(effectivePlan.value?.price) || 0,
+    })
     const dest = res.tenant_url || `https://${res.slug}.bendey.cloud`
     setTimeout(() => { window.location.href = dest }, 4000)
   } catch (e) {
