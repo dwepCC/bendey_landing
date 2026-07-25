@@ -7,7 +7,7 @@ import { WHATSAPP_URL } from '../config/contact.js'
     :href="WHATSAPP_URL"
     target="_blank"
     rel="noopener noreferrer"
-    class="whatsapp-btn fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#20bd5a] sm:bottom-6 sm:right-6 sm:px-5 sm:py-3.5"
+    class="whatsapp-btn fixed bottom-4 left-4 z-50 flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#20bd5a] sm:bottom-6 sm:left-6 sm:px-5 sm:py-3.5"
     aria-label="Chatear por WhatsApp sobre Bendey Cloud"
   >
     <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">

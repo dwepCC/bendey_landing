@@ -88,27 +88,35 @@ onUnmounted(() => {
       <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-10 xl:gap-14">
         <!-- Columna contenido -->
         <div class="space-y-6 lg:max-w-[540px]">
-          <div
-            class="inline-flex items-center gap-2 rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold text-bendey-navy"
-          >
-            <span class="h-2 w-2 rounded-full bg-emerald-500" />
-            Sistema de gestión para tu negocio
+          <!-- Sello de confianza: la homologación SUNAT ahora es visible (antes solo
+               estaba en los meta tags). -->
+          <div class="flex flex-wrap items-center gap-2">
+            <div
+              class="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-bold text-emerald-700 ring-1 ring-emerald-200"
+            >
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Homologado SUNAT
+            </div>
+            <div
+              class="inline-flex items-center gap-2 rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold text-bendey-navy"
+            >
+              <span class="h-2 w-2 rounded-full bg-emerald-500" />
+              Sistema de gestión para tu negocio
+            </div>
           </div>
 
           <div class="space-y-4">
-            <h1 class="text-4xl font-extrabold leading-tight tracking-tight sm:text-[2.75rem] sm:leading-[1.1]">
-              <span class="text-bendey-navy">Con </span>
-              <span class="text-bendey-gold">Bendey</span>
-              <br />
-              <span class="text-bendey-navy">vende más.</span>
-              <br />
-              <span class="text-bendey-gold">Controla todo.</span>
+            <!-- H1 con keyword (intención de búsqueda). La frase de marca pasa a subtítulo. -->
+            <h1 class="text-3xl font-extrabold leading-tight tracking-tight text-bendey-navy sm:text-[2.5rem] sm:leading-[1.1]">
+              Facturación Electrónica <span class="text-bendey-gold">SUNAT</span> y POS para tu negocio en Perú
             </h1>
-            <p class="text-lg font-bold text-bendey-navy sm:text-xl">
-              POS + Inventario + Facturación Electrónica
+            <p class="text-xl font-extrabold text-bendey-navy sm:text-2xl">
+              Con Bendey vende más. <span class="text-bendey-gold">Controla todo.</span>
             </p>
             <p class="max-w-md text-[15px] leading-relaxed text-slate-500 sm:text-base">
-              {{ brand.tagline }}. Escala con Bendey resto, caja, reportes y apps nativas para
+              {{ brand.tagline }}. Escala con Bendey Resto, caja, reportes y apps nativas para
               Windows y Android.
             </p>
           </div>
@@ -143,14 +151,13 @@ onUnmounted(() => {
               <span class="text-sm font-bold uppercase tracking-wide text-white">Prueba gratis</span>
               <span class="text-[11px] text-white/70">1 mes completo</span>
             </button>
-            <button
-              type="button"
-              class="inline-flex flex-1 flex-col items-center justify-center rounded-xl bg-bendey-gold px-5 py-3.5 transition hover:bg-bendey-gold-dark sm:max-w-[220px]"
-              @click="emit('register')"
+            <RouterLink
+              to="/precios"
+              class="inline-flex flex-1 flex-col items-center justify-center rounded-xl border-2 border-bendey-navy/15 bg-white px-5 py-3.5 transition hover:border-bendey-navy/30 hover:shadow-sm sm:max-w-[220px]"
             >
-              <span class="text-sm font-bold uppercase tracking-wide text-bendey-navy">Regístrate ya</span>
-              <span class="text-[11px] text-bendey-navy/70">Empieza hoy mismo</span>
-            </button>
+              <span class="text-sm font-bold uppercase tracking-wide text-bendey-navy">Ver planes</span>
+              <span class="text-[11px] text-bendey-navy/60">Precios y comparación</span>
+            </RouterLink>
           </div>
 
           <!-- Acciones secundarias -->
