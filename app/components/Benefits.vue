@@ -26,7 +26,7 @@ const benefits = [
     icon: '🍽️',
     badge: 'Restaurantes',
     title: 'Diseñado para gastronomía',
-    description: 'Bendey resto integra mesas, cocina y caja en un solo flujo. Atiende más rápido, reduce errores y factura desde la misma pantalla.',
+    description: 'Bendey Resto integra mesas, cocina y caja en un solo flujo. Atiende más rápido, reduce errores y factura desde la misma pantalla.',
   },
 ]
 </script>

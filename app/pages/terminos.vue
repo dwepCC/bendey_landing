@@ -5,7 +5,13 @@ import { PHONE_DISPLAY, WHATSAPP_URL } from '../config/contact.js'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 
-defineEmits(['register'])
+const { openRegister } = useRegister()
+
+useSeo({
+  title: 'Términos y Condiciones | Bendey Cloud',
+  description:
+    'Términos y condiciones de uso de Bendey Cloud: facturación electrónica y gestión empresarial en la nube.',
+})
 
 const LAST_UPDATED = '18 de julio de 2026'
 
@@ -35,7 +41,7 @@ const PLATFORM = {
         <polygon points="0,0 100,0 100,100" fill="currentColor" />
       </svg>
 
-      <Navbar :brand="brand" :navigation="homeNavigation" dark @register="$emit('register')" />
+      <Navbar :brand="brand" :navigation="homeNavigation" dark @register="openRegister" />
 
       <section class="relative z-10 mx-auto max-w-3xl px-4 pb-14 pt-28 sm:px-6 sm:pb-16 sm:pt-32 lg:px-8">
         <span

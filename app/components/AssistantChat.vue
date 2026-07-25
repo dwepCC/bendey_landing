@@ -403,7 +403,7 @@ function goRegister() {
   <!-- Burbuja proactiva -->
   <div
     v-if="showTeaser && !open"
-    class="fixed bottom-40 right-4 z-50 flex max-w-[15rem] items-start gap-2 rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-black/5 sm:bottom-44 sm:right-6"
+    class="fixed bottom-24 right-4 z-50 flex max-w-[15rem] items-start gap-2 rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-black/5 sm:bottom-28 sm:right-6"
   >
     <img :src="avatarSrc" alt="" class="h-8 w-8 shrink-0 rounded-full object-cover" />
     <button @click="openFromTeaser" class="text-left text-sm text-slate-700">
@@ -420,7 +420,7 @@ function goRegister() {
   <button
     v-if="!open"
     @click="toggle"
-    class="assistant-btn fixed bottom-24 right-4 z-50 flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:from-blue-700 hover:to-indigo-700 sm:bottom-28 sm:right-6"
+    class="assistant-btn fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:from-blue-700 hover:to-indigo-700 sm:bottom-6 sm:right-6"
     aria-label="Abrir chat con el asistente de Bendey"
   >
     <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

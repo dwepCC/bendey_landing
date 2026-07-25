@@ -62,7 +62,7 @@ const modules = [
     icon: '🔐',
   },
   {
-    name: 'Bendey resto',
+    name: 'Bendey Resto',
     tag: 'Restaurantes',
     description: 'Módulo especializado para restaurantes y cafeterías. Gestiona mesas, órdenes de cocina y carta digital integrada con facturación.',
     details: ['Gestión de mesas por piso', 'Pantallas de cocina en tiempo real', 'Carta digital configurable', 'Integrado con facturación'],

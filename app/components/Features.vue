@@ -25,7 +25,7 @@ const features = [
   {
     icon: '🍽️',
     title: 'Especializado para restaurantes',
-    description: 'Bendey resto conecta mesas, cocina y facturación en un flujo continuo. Ideal para restaurantes, cafeterías y dark kitchens.',
+    description: 'Bendey Resto conecta mesas, cocina y facturación en un flujo continuo. Ideal para restaurantes, cafeterías y dark kitchens.',
     accent: 'Resto',
   },
   {

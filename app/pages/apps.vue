@@ -6,7 +6,13 @@ import { brand, appsNavigation } from '../config/brand.js'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 
-defineEmits(['register'])
+const { openRegister } = useRegister()
+
+useSeo({
+  title: 'Descargar apps de Bendey para Windows y Android | Bendey Cloud',
+  description:
+    'Descarga las aplicaciones de Bendey para Windows y Android. Bendey Resto y más, listas para instalar y usar en tu negocio.',
+})
 
 const { visibleApplications, loading, error, resolvePublicUrl, formatFileSize } = useApplications()
 
@@ -39,7 +45,7 @@ function appImage(app) {
         :brand="brand"
         :navigation="appsNavigation"
         dark
-        @register="$emit('register')"
+        @register="openRegister"
       />
 
       <section class="relative z-10 mx-auto max-w-6xl px-4 pb-16 pt-28 sm:px-6 sm:pb-24 sm:pt-32 lg:px-8">
@@ -91,7 +97,7 @@ function appImage(app) {
           <button
             type="button"
             class="mt-6 rounded-xl bg-amber-500 px-6 py-3 text-sm font-bold text-white hover:bg-amber-600"
-            @click="$emit('register')"
+            @click="openRegister"
           >
             Crear cuenta gratis mientras tanto
           </button>
@@ -244,7 +250,7 @@ function appImage(app) {
           <button
             type="button"
             class="rounded-xl bg-bendey-gold px-8 py-3.5 text-sm font-bold text-bendey-navy shadow-lg hover:bg-bendey-gold-dark"
-            @click="$emit('register')"
+            @click="openRegister"
           >
             Comenzar gratis
           </button>
