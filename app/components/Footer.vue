@@ -1,10 +1,29 @@
 <script setup>
+import { nextTick } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { PHONE_DISPLAY, TEL_URL, WHATSAPP_URL } from '../config/contact.js'
 import { solutionRoutes } from '../config/seoRoutes.js'
 
 defineProps({
   brand: { type: Object, required: true },
 })
+
+const route = useRoute()
+const router = useRouter()
+
+// Scroll suave a una sección de la home sin poner el # en la URL (igual que el Navbar).
+function scrollToId(id, attempts = 12) {
+  const el = document.getElementById(id)
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  else if (attempts > 0) requestAnimationFrame(() => scrollToId(id, attempts - 1))
+}
+async function goToSection(id) {
+  if (route.path !== '/') {
+    await router.push('/')
+    await nextTick()
+  }
+  scrollToId(id)
+}
 </script>
 
 <template>
@@ -53,8 +72,8 @@ defineProps({
             </h3>
             <ul class="mt-4 space-y-2">
               <li><NuxtLink to="/" class="text-slate-300 transition hover:text-bendey-gold">Inicio</NuxtLink></li>
-              <li><a href="/#modulos" class="text-slate-300 transition hover:text-bendey-gold">Módulos</a></li>
-              <li><a href="/#caracteristicas" class="text-slate-300 transition hover:text-bendey-gold">Características</a></li>
+              <li><button type="button" class="cursor-pointer text-slate-300 transition hover:text-bendey-gold" @click="goToSection('modulos')">Módulos</button></li>
+              <li><button type="button" class="cursor-pointer text-slate-300 transition hover:text-bendey-gold" @click="goToSection('caracteristicas')">Características</button></li>
               <li><NuxtLink to="/apps" class="text-slate-300 transition hover:text-bendey-gold">Descargar apps</NuxtLink></li>
               <li><NuxtLink to="/precios" class="text-slate-300 transition hover:text-bendey-gold">Precios</NuxtLink></li>
               <li><NuxtLink to="/contacto" class="text-slate-300 transition hover:text-bendey-gold">Contacto</NuxtLink></li>

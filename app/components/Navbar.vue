@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 
 const props = defineProps({
   brand: { type: Object, required: true },
@@ -10,8 +10,29 @@ const props = defineProps({
 const emit = defineEmits(['register'])
 
 const route = useRoute()
+const router = useRouter()
 const mobileOpen = ref(false)
 const scrolled = ref(false)
+
+// Scroll suave a una sección de la home SIN poner el # en la URL. Si estamos en
+// otra ruta, primero vamos a la home y reintentamos hasta que la sección exista.
+function scrollToId(id, attempts = 12) {
+  const el = document.getElementById(id)
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  } else if (attempts > 0) {
+    requestAnimationFrame(() => scrollToId(id, attempts - 1))
+  }
+}
+
+async function goToSection(id) {
+  mobileOpen.value = false
+  if (route.path !== '/') {
+    await router.push('/')
+    await nextTick()
+  }
+  scrollToId(id)
+}
 
 function onScroll() {
   scrolled.value = window.scrollY > 40
@@ -73,6 +94,15 @@ const headerClass = computed(() => {
             >
               {{ item.label }}
             </RouterLink>
+            <button
+              v-else-if="item.section"
+              type="button"
+              class="cursor-pointer transition-colors"
+              :class="dark ? 'hover:text-bendey-gold' : 'hover:text-bendey-navy-mid'"
+              @click="goToSection(item.section)"
+            >
+              {{ item.label }}
+            </button>
             <a
               v-else
               :href="item.href"
@@ -128,6 +158,15 @@ const headerClass = computed(() => {
             >
               {{ item.label }}
             </RouterLink>
+            <button
+              v-else-if="item.section"
+              type="button"
+              class="rounded-lg px-3 py-2 text-left transition"
+              :class="dark ? 'text-slate-200 hover:bg-white/10' : 'text-slate-700 hover:bg-violet-50 hover:text-violet-600'"
+              @click="goToSection(item.section)"
+            >
+              {{ item.label }}
+            </button>
             <a
               v-else
               :href="item.href"
