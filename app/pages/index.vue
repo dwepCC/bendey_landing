@@ -1,20 +1,34 @@
 <script setup>
-// Página temporal del scaffold: sirve para verificar que el prerender genera HTML
-// con texto visible sin ejecutar JavaScript. En la tarea siguiente se reemplaza por
-// la home completa (Hero, Modules, Features, …).
+import { brand, homeNavigation } from '~/config/brand.js'
+
+// Estado del modal de registro (compartido, sin encadenar emits por el layout).
+const { openRegister } = useRegister()
+
+// SEO base de la home. En la Fase 3 se afina title/description/canonical/OG por
+// ruta; aquí queda un título correcto para el prerender.
 useSeoMeta({
-  title: 'Bendey Cloud — Facturación electrónica SUNAT y ERP',
+  title: 'Facturación Electrónica SUNAT y POS para tu negocio en Perú | Bendey Cloud',
+  description:
+    'Bendey Cloud: facturación electrónica homologada SUNAT, POS, inventario, compras y caja en la nube. Con Bendey Resto para restaurantes. Regístrate gratis.',
 })
 </script>
 
 <template>
-  <main class="mx-auto max-w-3xl px-6 py-24">
-    <h1 class="text-4xl font-extrabold text-bendey-navy">
-      Facturación Electrónica SUNAT y POS para tu negocio en Perú
-    </h1>
-    <p class="mt-4 text-lg text-slate-500">
-      Scaffold de Nuxt funcionando. Contenido prerenderizado en HTML estático, visible sin
-      ejecutar JavaScript. La home completa se porta en el siguiente paso.
-    </p>
-  </main>
+  <div id="inicio" class="relative overflow-hidden">
+    <Navbar :brand="brand" :navigation="homeNavigation" @register="openRegister" />
+
+    <main class="flex flex-col pt-20">
+      <Hero :brand="brand" @register="openRegister" />
+      <AppsPreview @register="openRegister" />
+      <Modules />
+      <Features />
+      <HowItWorks />
+      <Benefits />
+      <DownloadsTeaser @register="openRegister" />
+      <Pricing @select-plan="openRegister" />
+      <CTA @register="openRegister" />
+    </main>
+
+    <Footer :brand="brand" />
+  </div>
 </template>

@@ -32,6 +32,12 @@ export default defineNuxtConfig({
     },
   },
 
+  // Redirects heredados del router de la SPA (301 en estático).
+  routeRules: {
+    '/descargas': { redirect: '/apps' },
+    '/terminos-y-condiciones': { redirect: '/terminos' },
+  },
+
   nitro: {
     // Proxy de desarrollo: replica el proxy de Vite hacia el backend Go local,
     // así el chat, los planes y el registro funcionan sin CORS en dev.
