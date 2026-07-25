@@ -1,3 +1,6 @@
-# Netlify / similar — SPA: enlaces /r/CODIGO sirven index.html
-/r/*    /index.html   200
-/*      /index.html   200
+# Netlify — Nuxt SSG.
+# Las rutas prerenderizadas se sirven como archivos estáticos directamente.
+# Solo las no prerenderizadas (p. ej. /r/CODIGO de referido) caen al shell 200.html,
+# que hidrata en el cliente y resuelve la ruta.
+/r/*    /200.html   200
+/*      /200.html   200
