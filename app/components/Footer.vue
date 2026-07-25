@@ -52,12 +52,12 @@ defineProps({
               Navegación
             </h3>
             <ul class="mt-4 space-y-2">
-              <li><a href="/#inicio" class="text-slate-300 transition hover:text-bendey-gold">Inicio</a></li>
+              <li><NuxtLink to="/" class="text-slate-300 transition hover:text-bendey-gold">Inicio</NuxtLink></li>
               <li><a href="/#modulos" class="text-slate-300 transition hover:text-bendey-gold">Módulos</a></li>
               <li><a href="/#caracteristicas" class="text-slate-300 transition hover:text-bendey-gold">Características</a></li>
               <li><NuxtLink to="/apps" class="text-slate-300 transition hover:text-bendey-gold">Descargar apps</NuxtLink></li>
-              <li><a href="/#precios" class="text-slate-300 transition hover:text-bendey-gold">Precios</a></li>
-              <li><a href="/#contacto" class="text-slate-300 transition hover:text-bendey-gold">Contacto</a></li>
+              <li><NuxtLink to="/precios" class="text-slate-300 transition hover:text-bendey-gold">Precios</NuxtLink></li>
+              <li><NuxtLink to="/contacto" class="text-slate-300 transition hover:text-bendey-gold">Contacto</NuxtLink></li>
             </ul>
           </div>
 

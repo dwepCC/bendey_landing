@@ -7,18 +7,21 @@ export const brand = {
   tagline: 'Plataforma integral para facturación electrónica y gestión empresarial',
 }
 
+// `to` = ruta real (RouterLink, sin recarga). `href` = ancla a una sección de la
+// home (Módulos/Características no tienen página propia, siguen siendo anclas).
+// Precios y Contacto SÍ son rutas reales ahora, así que van sin numeral.
 export const homeNavigation = [
-  { label: 'Inicio', href: '/#inicio' },
+  { label: 'Inicio', to: '/' },
   { label: 'Módulos', href: '/#modulos' },
   { label: 'Características', href: '/#caracteristicas' },
   { label: 'Apps', to: '/apps' },
-  { label: 'Precios', href: '/#precios' },
-  { label: 'Contacto', href: '/#contacto' },
+  { label: 'Precios', to: '/precios' },
+  { label: 'Contacto', to: '/contacto' },
 ]
 
 export const appsNavigation = [
-  { label: 'Inicio', href: '/' },
+  { label: 'Inicio', to: '/' },
   { label: 'Ver ERP', href: '/#modulos' },
-  { label: 'Precios', href: '/#precios' },
+  { label: 'Precios', to: '/precios' },
   { label: 'Apps', to: '/apps' },
 ]
