@@ -2,7 +2,7 @@
 import { nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { PHONE_DISPLAY, TEL_URL, WHATSAPP_URL } from '../config/contact.js'
-import { solutionRoutes } from '../config/seoRoutes.js'
+import { solutionRoutes, tutorialRoutes } from '../config/seoRoutes.js'
 
 defineProps({
   brand: { type: Object, required: true },
@@ -61,6 +61,17 @@ async function goToSection(id) {
             </h3>
             <ul class="mt-4 space-y-2">
               <li v-for="r in solutionRoutes" :key="r.to">
+                <NuxtLink :to="r.to" class="text-slate-300 transition hover:text-bendey-gold">{{ r.label }}</NuxtLink>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">
+              Guías
+            </h3>
+            <ul class="mt-4 space-y-2">
+              <li v-for="r in tutorialRoutes" :key="r.to">
                 <NuxtLink :to="r.to" class="text-slate-300 transition hover:text-bendey-gold">{{ r.label }}</NuxtLink>
               </li>
             </ul>

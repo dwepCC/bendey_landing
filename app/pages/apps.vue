@@ -264,6 +264,31 @@ function appImage(app) {
       </div>
     </section>
 
+    <!-- Guías de uso de cada app -->
+    <section class="mx-auto max-w-5xl px-6 pb-16">
+      <h2 class="text-center text-2xl font-bold tracking-tight text-bendey-navy">¿Ya la instalaste? Aprende a usarla</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <RouterLink
+          to="/tutorial-bendey-erp"
+          class="group rounded-2xl bg-white p-6 shadow-[0_2px_16px_rgba(15,39,68,0.06)] ring-1 ring-slate-100 transition hover:shadow-md"
+        >
+          <p class="text-xs font-bold uppercase tracking-wide text-bendey-gold">Guía de uso</p>
+          <p class="mt-1 text-lg font-bold text-bendey-navy">Cómo usar Bendey ERP</p>
+          <p class="mt-1 text-sm text-slate-500">Configura tu empresa, vende, emite comprobantes SUNAT, controla inventario y más.</p>
+          <span class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-bendey-navy group-hover:text-bendey-gold">Ver tutorial →</span>
+        </RouterLink>
+        <RouterLink
+          to="/tutorial-bendey-resto"
+          class="group rounded-2xl bg-white p-6 shadow-[0_2px_16px_rgba(15,39,68,0.06)] ring-1 ring-slate-100 transition hover:shadow-md"
+        >
+          <p class="text-xs font-bold uppercase tracking-wide text-bendey-gold">Guía de uso</p>
+          <p class="mt-1 text-lg font-bold text-bendey-navy">Cómo usar Bendey Resto</p>
+          <p class="mt-1 text-sm text-slate-500">Configura tu carta, atiende mesas, envía comandas a cocina, cobra y factura.</p>
+          <span class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-bendey-navy group-hover:text-bendey-gold">Ver tutorial →</span>
+        </RouterLink>
+      </div>
+    </section>
+
     <Footer :brand="brand" />
   </div>
 </template>

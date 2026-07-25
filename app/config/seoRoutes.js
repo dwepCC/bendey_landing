@@ -9,6 +9,12 @@ export const solutionRoutes = [
   { to: '/contacto', label: 'Contacto' },
 ]
 
+// Guías/tutoriales de uso de cada aplicación.
+export const tutorialRoutes = [
+  { to: '/tutorial-bendey-erp', label: 'Cómo usar Bendey ERP' },
+  { to: '/tutorial-bendey-resto', label: 'Cómo usar Bendey Resto' },
+]
+
 // Enlaces a las hermanas de una página (excluye la actual).
 export function relatedTo(currentPath) {
   return solutionRoutes.filter((r) => r.to !== currentPath)
