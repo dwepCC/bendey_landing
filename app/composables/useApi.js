@@ -1,6 +1,8 @@
-// En desarrollo VITE_API_URL está vacío → paths relativos → Vite proxy al backend local (sin CORS).
-// En producción VITE_API_URL=https://api.bendey.cloud → URL absoluta.
-const API_BASE = import.meta.env.VITE_API_URL ?? ''
+// Dev: rutas relativas → devProxy de Nitro al backend Go local (sin CORS).
+// Producción (build estático): API público absoluto. `import.meta.dev` lo resuelve
+// Nuxt en build, así que `npm run generate` funciona sin variables de entorno.
+// Se puede sobreescribir en build con VITE_API_URL si el dominio del API cambia.
+const API_BASE = import.meta.env.VITE_API_URL || (import.meta.dev ? '' : 'https://api.bendey.cloud')
 
 export async function apiFetch(path, options = {}) {
   const url = `${API_BASE}${path}`

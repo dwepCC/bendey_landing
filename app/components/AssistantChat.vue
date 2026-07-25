@@ -85,7 +85,9 @@ let ws = null
 let wsRetry = null
 
 function wsURL() {
-  const base = import.meta.env.VITE_API_URL || window.location.origin
+  // Dev: origin local (el devProxy con ws:true reenvía /api al backend). Producción:
+  // API absoluto. Mismo criterio que useApi para que el WS del chat apunte bien.
+  const base = import.meta.env.VITE_API_URL || (import.meta.dev ? window.location.origin : 'https://api.bendey.cloud')
   const u = new URL('/api/public/assistant/chat/ws', base)
   u.protocol = u.protocol === 'https:' ? 'wss:' : 'ws:'
   u.searchParams.set('session_id', sessionId.value)
