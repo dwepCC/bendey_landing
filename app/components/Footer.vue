@@ -1,6 +1,6 @@
 <script setup>
-import { RouterLink } from 'vue-router'
 import { PHONE_DISPLAY, TEL_URL, WHATSAPP_URL } from '../config/contact.js'
+import { solutionRoutes } from '../config/seoRoutes.js'
 
 defineProps({
   brand: { type: Object, required: true },
@@ -35,13 +35,24 @@ defineProps({
         <div class="grid gap-8 sm:grid-cols-2 md:flex md:gap-16">
           <div>
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">
+              Soluciones
+            </h3>
+            <ul class="mt-4 space-y-2">
+              <li v-for="r in solutionRoutes" :key="r.to">
+                <NuxtLink :to="r.to" class="text-slate-300 transition hover:text-bendey-gold">{{ r.label }}</NuxtLink>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">
               Navegación
             </h3>
             <ul class="mt-4 space-y-2">
               <li><a href="/#inicio" class="text-slate-300 transition hover:text-bendey-gold">Inicio</a></li>
               <li><a href="/#modulos" class="text-slate-300 transition hover:text-bendey-gold">Módulos</a></li>
               <li><a href="/#caracteristicas" class="text-slate-300 transition hover:text-bendey-gold">Características</a></li>
-              <li><RouterLink to="/apps" class="text-slate-300 transition hover:text-bendey-gold">Descargar apps</RouterLink></li>
+              <li><NuxtLink to="/apps" class="text-slate-300 transition hover:text-bendey-gold">Descargar apps</NuxtLink></li>
               <li><a href="/#precios" class="text-slate-300 transition hover:text-bendey-gold">Precios</a></li>
               <li><a href="/#contacto" class="text-slate-300 transition hover:text-bendey-gold">Contacto</a></li>
             </ul>
@@ -82,9 +93,9 @@ defineProps({
             </h3>
             <ul class="mt-4 space-y-2">
               <li>
-                <RouterLink to="/terminos" class="text-slate-300 transition hover:text-bendey-gold">
+                <NuxtLink to="/terminos" class="text-slate-300 transition hover:text-bendey-gold">
                   Términos y Condiciones
-                </RouterLink>
+                </NuxtLink>
               </li>
               <li>
                 <a
