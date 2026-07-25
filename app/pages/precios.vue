@@ -4,7 +4,7 @@ import { solutionRoutes } from '~/config/seoRoutes.js'
 
 const { openRegister } = useRegister()
 
-useSeoMeta({
+useSeo({
   title: 'Planes y Precios | Bendey Cloud',
   description:
     'Conoce los planes de Bendey Cloud: facturación electrónica SUNAT, POS, inventario y más. Prueba gratis 1 mes y elige el plan que se ajusta a tu negocio.',

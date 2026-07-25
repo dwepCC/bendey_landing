@@ -4,12 +4,15 @@ import { brand, homeNavigation } from '~/config/brand.js'
 // Estado del modal de registro (compartido, sin encadenar emits por el layout).
 const { openRegister } = useRegister()
 
-// SEO base de la home. En la Fase 3 se afina title/description/canonical/OG por
-// ruta; aquí queda un título correcto para el prerender.
-useSeoMeta({
+useSeo({
   title: 'Facturación Electrónica SUNAT y POS para tu negocio en Perú | Bendey Cloud',
   description:
     'Bendey Cloud: facturación electrónica homologada SUNAT, POS, inventario, compras y caja en la nube. Con Bendey Resto para restaurantes. Regístrate gratis.',
+})
+useSoftwareApplicationSchema({
+  name: 'Bendey Cloud',
+  description:
+    'Plataforma en la nube de facturación electrónica SUNAT, POS, inventario, compras, caja y restaurantes para negocios en Perú.',
 })
 </script>
 

@@ -1,10 +1,15 @@
 <script setup>
 import { relatedTo } from '~/config/seoRoutes.js'
 
-useSeoMeta({
+useSeo({
   title: 'Sistema para Restaurantes: comandas, mesas y facturación | Bendey Cloud',
   description:
     'Bendey Resto conecta mesas, cocina y facturación en un flujo continuo. Ideal para restaurantes, cafeterías y dark kitchens. Prueba gratis.',
+})
+useSoftwareApplicationSchema({
+  name: 'Bendey Resto — Sistema para restaurantes',
+  description:
+    'Gestiona mesas, órdenes de cocina y carta digital, integrado con facturación electrónica.',
 })
 </script>
 

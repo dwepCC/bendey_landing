@@ -1,10 +1,15 @@
 <script setup>
 import { relatedTo } from '~/config/seoRoutes.js'
 
-useSeoMeta({
+useSeo({
   title: 'Control de Inventario en Tiempo Real | Bendey Cloud',
   description:
     'Control de stock en tiempo real con kardex, movimientos y transferencias entre sucursales. Alertas de stock mínimo. Prueba gratis.',
+})
+useSoftwareApplicationSchema({
+  name: 'Bendey Cloud — Control de inventario',
+  description:
+    'Control de stock en tiempo real con kardex, transferencias entre sucursales y alertas de stock mínimo.',
 })
 </script>
 

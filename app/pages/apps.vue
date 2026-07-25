@@ -8,6 +8,12 @@ import Footer from '../components/Footer.vue'
 
 const { openRegister } = useRegister()
 
+useSeo({
+  title: 'Descargar apps de Bendey para Windows y Android | Bendey Cloud',
+  description:
+    'Descarga las aplicaciones de Bendey para Windows y Android. Bendey Resto y más, listas para instalar y usar en tu negocio.',
+})
+
 const { visibleApplications, loading, error, resolvePublicUrl, formatFileSize } = useApplications()
 
 function rowsFor(app) {

@@ -19,6 +19,9 @@ defineProps({
             v-if="brand.logoSrc"
             :src="brand.logoSrc"
             :alt="brand.fullName"
+            loading="lazy"
+            width="56"
+            height="56"
             class="h-14 w-auto object-contain"
           />
           <div class="flex flex-col">

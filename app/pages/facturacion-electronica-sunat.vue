@@ -2,10 +2,15 @@
 import { relatedTo } from '~/config/seoRoutes.js'
 
 // Copy real, reutilizado de Modules.vue y Features.vue (no se inventa nada).
-useSeoMeta({
+useSeo({
   title: 'Facturación Electrónica Homologada SUNAT | Bendey Cloud',
   description:
     'Emite boletas, facturas y notas de crédito y débito electrónicas válidas ante SUNAT. Resúmenes diarios automáticos y control de series por sucursal.',
+})
+useSoftwareApplicationSchema({
+  name: 'Bendey Cloud — Facturación electrónica SUNAT',
+  description:
+    'Emite boletas, facturas y notas de crédito y débito electrónicas válidas ante SUNAT, con resúmenes diarios y series por sucursal.',
 })
 </script>
 

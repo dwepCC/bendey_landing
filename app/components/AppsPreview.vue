@@ -61,6 +61,7 @@ function appImage(app) {
               v-if="appImage(app)"
               :src="appImage(app)"
               :alt="app.name"
+              loading="lazy"
               class="h-full w-full object-cover transition group-hover:scale-105"
             />
             <div

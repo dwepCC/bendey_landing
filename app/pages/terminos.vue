@@ -7,6 +7,12 @@ import Footer from '../components/Footer.vue'
 
 const { openRegister } = useRegister()
 
+useSeo({
+  title: 'Términos y Condiciones | Bendey Cloud',
+  description:
+    'Términos y condiciones de uso de Bendey Cloud: facturación electrónica y gestión empresarial en la nube.',
+})
+
 const LAST_UPDATED = '18 de julio de 2026'
 
 // Plataforma / operador (misma empresa que GestionWeb Cloud).

@@ -5,7 +5,7 @@ import { solutionRoutes } from '~/config/seoRoutes.js'
 
 const { openRegister } = useRegister()
 
-useSeoMeta({
+useSeo({
   title: 'Contacto | Bendey Cloud',
   description:
     'Contáctanos por WhatsApp o teléfono para resolver tus dudas sobre Bendey Cloud, agendar una demostración o recibir soporte con la configuración.',

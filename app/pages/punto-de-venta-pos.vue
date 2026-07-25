@@ -1,10 +1,15 @@
 <script setup>
 import { relatedTo } from '~/config/seoRoutes.js'
 
-useSeoMeta({
+useSeo({
   title: 'Punto de Venta (POS) para tu negocio en Perú | Bendey Cloud',
   description:
     'Registra ventas rápidamente desde cualquier dispositivo. POS integrado con inventario y facturación electrónica en un solo flujo. Prueba gratis.',
+})
+useSoftwareApplicationSchema({
+  name: 'Bendey Cloud — Punto de venta (POS)',
+  description:
+    'POS que registra ventas desde cualquier dispositivo, integrado con inventario y facturación electrónica.',
 })
 </script>
 
