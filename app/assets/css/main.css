@@ -1,0 +1,28 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-bendey-navy: #0f2744;
+  --color-bendey-navy-mid: #1a3a5c;
+  --color-bendey-navy-light: #2a4d73;
+  --color-bendey-gold: #f5b800;
+  --color-bendey-gold-dark: #dba500;
+  --color-bendey-gray: #f3f4f6;
+  --color-bendey-gray-border: #e5e7eb;
+}
+
+:root {
+  color-scheme: light;
+  --bendey-navy: #0f2744;
+  --bendey-gold: #f5b800;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  margin: 0;
+  background-color: #ffffff;
+}
+
+.bendey-dots {
+  background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+  background-size: 18px 18px;
+}
