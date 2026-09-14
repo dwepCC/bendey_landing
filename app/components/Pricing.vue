@@ -46,8 +46,9 @@ function discountPercentFor(plan, cycle) {
 
 function displayPrice(plan) {
   if (billingMode.value === 'monthly') return plan.price
-  // El anual respeta su propio precio de lista si está configurado (igual que en el backend).
-  if (billingMode.value === 'annual' && plan.annual_price > 0) return plan.annual_price
+  // Misma fórmula para los 3 ciclos con descuento — antes el anual tenía un "precio de lista"
+  // (annual_price) aparte del %, y podían quedar desincronizados: se veía "Ahorra 20%" junto a un
+  // precio que en realidad no reflejaba ningún descuento.
   const months = cycleMonths(billingMode.value)
   const discount = discountPercentFor(plan, billingMode.value)
   return plan.price * months * (1 - discount / 100)
@@ -57,14 +58,6 @@ function savingsLabel(plan) {
   if (billingMode.value === 'monthly') return null
   const discount = discountPercentFor(plan, billingMode.value)
   if (discount > 0) return `Ahorra ${discount}%`
-  if (billingMode.value === 'annual' && plan.annual_price > 0 && plan.price > 0) {
-    const yearly = plan.price * 12
-    const saved = yearly - plan.annual_price
-    if (saved > 0) {
-      const pct = Math.round((saved / yearly) * 100)
-      return `Ahorra ${pct}%`
-    }
-  }
   return null
 }
 
