@@ -1,29 +1,25 @@
 <script setup>
-import { useInView } from '../composables/useInView'
-
-const { elementRef, isInView } = useInView()
-
 const benefits = [
   {
-    icon: '🧾',
+    icon: 'invoice',
     badge: 'SUNAT al día',
     title: 'Cumple sin complicarte',
     description: 'Emite boletas, facturas y notas electrónicas homologadas. Los resúmenes diarios y bajas se envían automáticamente. Sin multas, sin papel.',
   },
   {
-    icon: '📊',
+    icon: 'chart',
     badge: 'Visibilidad total',
     title: 'Sabe qué pasa en tu negocio',
     description: 'Dashboard con ventas del día, stock actual, compras pendientes y caja en tiempo real. Todo en una sola pantalla, sin exportar a Excel.',
   },
   {
-    icon: '🏢',
+    icon: 'branches',
     badge: 'Multi sede',
     title: 'Crece sin cambiar de sistema',
     description: 'Agrega sucursales, nuevos usuarios y activa módulos cuando los necesites. Un sistema que escala contigo sin migraciones.',
   },
   {
-    icon: '🍽️',
+    icon: 'plate',
     badge: 'Restaurantes',
     title: 'Diseñado para gastronomía',
     description: 'Bendey Resto integra mesas, cocina y caja en un solo flujo. Atiende más rápido, reduce errores y factura desde la misma pantalla.',
@@ -32,14 +28,8 @@ const benefits = [
 </script>
 
 <template>
-  <section
-    ref="elementRef"
-    class="bg-white px-4 py-20 sm:px-6 lg:px-8"
-  >
-    <div
-      class="mx-auto max-w-6xl transition-all duration-700"
-      :class="isInView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
-    >
+  <section class="bg-white px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl">
       <div class="mb-12">
         <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
           ¿Por qué Bendey Cloud?
@@ -53,10 +43,10 @@ const benefits = [
         <article
           v-for="benefit in benefits"
           :key="benefit.title"
-          class="group flex gap-5 rounded-xl border-2 border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-violet-400 hover:shadow-md"
+          class="flex gap-5 rounded-xl border-2 border-slate-200 bg-white p-6 transition-colors duration-300 hover:border-bendey-gold"
         >
-          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-2xl">
-            {{ benefit.icon }}
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-bendey-gold/15 text-bendey-navy">
+            <AppIcon :name="benefit.icon" class="h-6 w-6" />
           </div>
           <div>
             <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-bold text-amber-700">

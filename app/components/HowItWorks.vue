@@ -1,24 +1,20 @@
 <script setup>
-import { useInView } from '../composables/useInView'
-
-const { elementRef, isInView } = useInView()
-
 const steps = [
   {
     number: '01',
-    icon: '📝',
+    icon: 'clipboard',
     title: 'Regístrate con tu RUC',
     description: 'Ingresa el RUC de tu empresa. Lo validamos en SUNAT automáticamente y traemos tu razón social. En minutos tienes tu cuenta activa.',
   },
   {
     number: '02',
-    icon: '⚙️',
+    icon: 'sliders',
     title: 'Configura tu empresa',
     description: 'Agrega tus series de comprobantes, sucursales, usuarios y métodos de pago. Todo desde un panel claro y ordenado.',
   },
   {
     number: '03',
-    icon: '🧾',
+    icon: 'receiptCheck',
     title: 'Emite y vende desde el primer día',
     description: 'Emite boletas y facturas electrónicas válidas ante SUNAT, registra tus ventas en el POS y controla tu inventario en tiempo real.',
   },
@@ -26,14 +22,8 @@ const steps = [
 </script>
 
 <template>
-  <section
-    ref="elementRef"
-    class="bg-slate-50 px-4 py-20 sm:px-6 lg:px-8"
-  >
-    <div
-      class="mx-auto max-w-6xl transition-all duration-700"
-      :class="isInView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
-    >
+  <section class="bg-slate-50 px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl">
       <div class="mb-12">
         <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
           ¿Cómo empiezo?
@@ -43,21 +33,27 @@ const steps = [
         </p>
       </div>
 
-      <div class="grid gap-6 md:grid-cols-3">
-        <article
-          v-for="step in steps"
-          :key="step.number"
-          class="group relative flex flex-col rounded-xl border-2 border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-violet-400 hover:shadow-md"
-        >
-          <div class="mb-4 flex items-center justify-between">
-            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-violet-600 text-xs font-bold text-white">
-              {{ step.number }}
-            </span>
-            <span class="text-2xl">{{ step.icon }}</span>
+      <!-- Esto sí es una secuencia real, así que se representa como una: números
+           conectados por una línea, no como tarjetas sueltas idénticas a las de
+           Características o Módulos (que no son pasos, son datos en paralelo). -->
+      <div class="flex flex-col gap-10 md:flex-row md:items-start md:gap-0">
+        <template v-for="(step, index) in steps" :key="step.number">
+          <div class="flex flex-1 flex-col gap-4 md:pr-8">
+            <div class="flex items-center gap-3">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-bendey-navy text-sm font-bold text-white">
+                {{ step.number }}
+              </span>
+              <AppIcon :name="step.icon" class="h-5 w-5 text-bendey-gold-dark" />
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-slate-900">{{ step.title }}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-500">{{ step.description }}</p>
+            </div>
           </div>
-          <h3 class="text-base font-bold text-slate-900">{{ step.title }}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-slate-500">{{ step.description }}</p>
-        </article>
+          <div v-if="index < steps.length - 1" class="hidden w-10 shrink-0 items-center justify-center md:flex md:pt-5">
+            <span class="h-px w-full bg-slate-300" aria-hidden="true" />
+          </div>
+        </template>
       </div>
     </div>
   </section>

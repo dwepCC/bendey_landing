@@ -9,22 +9,10 @@ defineProps({
 const emit = defineEmits(['register'])
 
 const highlights = [
-  {
-    label: 'Facturación electrónica',
-    icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
-  },
-  {
-    label: 'Inventario en tiempo real',
-    icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
-  },
-  {
-    label: 'Reportes y estadísticas',
-    icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
-  },
-  {
-    label: 'PC, web y celular',
-    icon: 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z',
-  },
+  { label: 'Facturación electrónica', icon: 'invoice' },
+  { label: 'Inventario en tiempo real', icon: 'boxes' },
+  { label: 'Reportes y estadísticas', icon: 'chart' },
+  { label: 'PC, web y celular', icon: 'device' },
 ]
 
 const slides = [
@@ -131,9 +119,7 @@ onUnmounted(() => {
               <div
                 class="flex h-9 w-9 items-center justify-center rounded-lg bg-bendey-gold/15 text-bendey-navy"
               >
-                <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" :d="item.icon" />
-                </svg>
+                <AppIcon :name="item.icon" class="h-5 w-5" />
               </div>
               <span class="text-[10px] font-semibold leading-tight text-bendey-navy sm:text-[11px]">
                 {{ item.label }}

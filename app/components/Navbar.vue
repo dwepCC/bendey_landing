@@ -153,7 +153,7 @@ const headerClass = computed(() => {
               v-if="item.to"
               :to="item.to"
               class="rounded-lg px-3 py-2 transition"
-              :class="dark ? 'text-slate-200 hover:bg-white/10' : 'text-slate-700 hover:bg-violet-50 hover:text-violet-600'"
+              :class="dark ? 'text-slate-200 hover:bg-white/10' : 'text-slate-700 hover:bg-bendey-gold/10 hover:text-bendey-navy-mid'"
               @click="handleNavigate"
             >
               {{ item.label }}
@@ -162,7 +162,7 @@ const headerClass = computed(() => {
               v-else-if="item.section"
               type="button"
               class="rounded-lg px-3 py-2 text-left transition"
-              :class="dark ? 'text-slate-200 hover:bg-white/10' : 'text-slate-700 hover:bg-violet-50 hover:text-violet-600'"
+              :class="dark ? 'text-slate-200 hover:bg-white/10' : 'text-slate-700 hover:bg-bendey-gold/10 hover:text-bendey-navy-mid'"
               @click="goToSection(item.section)"
             >
               {{ item.label }}
@@ -171,7 +171,7 @@ const headerClass = computed(() => {
               v-else
               :href="item.href"
               class="rounded-lg px-3 py-2 transition"
-              :class="dark ? 'text-slate-200 hover:bg-white/10' : 'text-slate-700 hover:bg-violet-50 hover:text-violet-600'"
+              :class="dark ? 'text-slate-200 hover:bg-white/10' : 'text-slate-700 hover:bg-bendey-gold/10 hover:text-bendey-navy-mid'"
               @click="handleNavigate"
             >
               {{ item.label }}

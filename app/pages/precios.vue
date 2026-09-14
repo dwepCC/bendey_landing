@@ -21,13 +21,15 @@ useSeo({
           Planes y Precios
         </h1>
         <p class="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-slate-600">
-          Empieza con una prueba gratis de 1 mes. Activa solo las herramientas que necesitas y
-          escala cuando tu negocio crezca.
+          Empieza con una prueba gratis de 1 mes. Sin contratos rígidos: activa solo las
+          herramientas que necesitas, cancela cuando quieras y escala cuando tu negocio crezca.
         </p>
       </section>
 
-      <!-- Tabla de planes: se carga del backend (precios siempre actualizados). -->
-      <Pricing @select-plan="openRegister" />
+      <!-- Tabla de planes: se carga del backend (precios siempre actualizados).
+           showHeading=false porque esta página ya trae su propio título arriba —
+           el componente trae el suyo propio para cuando se usa suelto en el home. -->
+      <Pricing :show-heading="false" @select-plan="openRegister" />
 
       <!-- Enlazado interno -->
       <section class="mx-auto max-w-5xl px-6 py-12">

@@ -67,43 +67,6 @@ export function appHasDownloads(app) {
   )
 }
 
-/** CTAs principales: Microsoft Store, Google Play y descarga directa Windows. */
-export function buildAppDownloadCTAs(app, resolvePublicUrl) {
-  const ctas = []
-  if (app.windows_store_url?.trim()) {
-    ctas.push({
-      key: 'ms-store',
-      label: 'Microsoft Store',
-      href: app.windows_store_url.trim(),
-      external: true,
-      variant: 'store',
-    })
-  }
-  if (app.android_store_url?.trim()) {
-    ctas.push({
-      key: 'play-store',
-      label: 'Google Play',
-      href: app.android_store_url.trim(),
-      external: true,
-      variant: 'store',
-    })
-  }
-  const winDirect = app.downloads?.windows?.download_url
-  if (winDirect) {
-    ctas.push({
-      key: 'direct-win',
-      label: 'Descarga directa (.exe)',
-      href: resolvePublicUrl(winDirect),
-      external: false,
-      download: true,
-      variant: 'direct',
-      version: app.downloads?.windows?.version,
-      size: app.downloads?.windows?.file_size,
-    })
-  }
-  return ctas
-}
-
 export function downloadChannelLabels(app) {
   const labels = []
   if (app.windows_store_url?.trim()) labels.push('Microsoft Store')
@@ -120,7 +83,7 @@ export function appVisual(code = '') {
   const map = {
     'bendey-restaurante': {
       emoji: '🍽️',
-      gradient: 'from-violet-600 via-purple-600 to-indigo-700',
+      gradient: 'from-bendey-navy via-bendey-navy-mid to-bendey-gold-dark',
       tag: 'Restaurantes',
       perks: ['Mesas y comandas', 'Cocina en tiempo real', 'Caja integrada'],
     },
@@ -128,7 +91,7 @@ export function appVisual(code = '') {
   return (
     map[code] || {
       emoji: '📲',
-      gradient: 'from-violet-600 to-indigo-700',
+      gradient: 'from-bendey-navy to-bendey-navy-light',
       tag: 'App Bendey',
       perks: ['Sincronizado con la nube', 'Multiplataforma', 'Actualizaciones automáticas'],
     }

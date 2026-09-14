@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { useApplications } from '../composables/useApplications.js'
-import { buildDownloadRows, buildAppDownloadCTAs, appVisual } from '../composables/applicationDownloads.js'
+import { buildDownloadRows, appVisual } from '../composables/applicationDownloads.js'
 import { brand, appsNavigation } from '../config/brand.js'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
@@ -20,10 +20,6 @@ function rowsFor(app) {
   return buildDownloadRows(app, resolvePublicUrl, formatFileSize)
 }
 
-function ctasFor(app) {
-  return buildAppDownloadCTAs(app, resolvePublicUrl)
-}
-
 function appImage(app) {
   return app.image_url ? resolvePublicUrl(app.image_url) : ''
 }
@@ -31,49 +27,43 @@ function appImage(app) {
 
 <template>
   <div class="relative min-h-screen bg-white text-bendey-navy">
-    <div class="relative isolate overflow-hidden bg-bendey-navy">
-      <svg
-        class="pointer-events-none absolute right-0 top-0 z-0 h-36 w-36 text-bendey-gold sm:h-48 sm:w-48 md:h-56 md:w-56"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
+    <div class="relative overflow-hidden bg-white">
+      <!-- Mismo lenguaje visual que el Hero del home: fondo claro, patrón de puntos,
+           badges e insignias en pill, en vez del bloque navy a pantalla completa que
+           hacía que esta página se sintiera de otro sitio. -->
+      <div
+        class="pointer-events-none absolute right-0 top-0 z-0 h-72 w-full max-w-xl bendey-dots opacity-50 sm:h-80"
         aria-hidden="true"
-      >
-        <polygon points="0,0 100,0 100,100" fill="currentColor" />
-      </svg>
-
-      <Navbar
-        :brand="brand"
-        :navigation="appsNavigation"
-        dark
-        @register="openRegister"
       />
 
-      <section class="relative z-10 mx-auto max-w-6xl px-4 pb-16 pt-28 sm:px-6 sm:pb-24 sm:pt-32 lg:px-8">
-        <div class="mx-auto max-w-3xl text-center">
+      <Navbar :brand="brand" :navigation="appsNavigation" @register="openRegister" />
+
+      <!-- Hero deliberadamente compacto: esta página existe para que se descargue la
+           app, no para venderla de nuevo — el listado debe aparecer casi sin scroll,
+           en vez de empujarlo hacia abajo con un hero a pantalla completa. -->
+      <section class="relative z-10 mx-auto max-w-6xl px-4 pb-10 pt-24 sm:px-6 sm:pt-28 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
           <span
-            class="mb-6 inline-flex items-center gap-2 rounded-full border border-bendey-gold/30 bg-bendey-gold/10 px-4 py-1.5 text-xs font-semibold text-bendey-gold backdrop-blur"
+            class="mb-4 inline-flex items-center gap-2 rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold text-bendey-navy"
           >
-            <span class="h-2 w-2 animate-pulse rounded-full bg-bendey-gold" />
-            Disponible para Windows, Android y más
+            <span class="h-2 w-2 rounded-full bg-emerald-500" />
+            Disponible para Windows y Android
           </span>
-          <h1 class="text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Lleva Bendey a tu
-            <span class="text-bendey-gold"> PC o celular</span>
+
+          <h1 class="text-2xl font-extrabold leading-tight tracking-tight text-bendey-navy sm:text-3xl">
+            Lleva Bendey a tu <span class="text-bendey-gold">PC o celular</span>
           </h1>
-          <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">
-            Descarga nuestras apps nativas, pruébalas en tu negocio y conecta con tu cuenta en la nube.
-            Sin complicaciones — instalación en minutos.
+          <p class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-500 sm:text-[15px]">
+            Descarga nuestras apps nativas y conecta con tu cuenta en la nube. Sin complicaciones,
+            instalación en minutos.
           </p>
 
-          <div class="mt-10 flex flex-wrap items-center justify-center gap-4 text-sm text-slate-400">
-            <span class="inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 ring-1 ring-white/10">
-              ✓ Gratis para empezar
-            </span>
-            <span class="inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 ring-1 ring-white/10">
-              ✓ Enlaces siempre actualizados
-            </span>
-            <span class="inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 ring-1 ring-white/10">
-              ✓ Tiendas oficiales + descarga directa
+          <div class="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 text-xs text-slate-500 sm:text-sm">
+            <span v-for="item in ['Gratis para empezar', 'Enlaces siempre actualizados', 'Tiendas oficiales + descarga directa']" :key="item" class="inline-flex items-center gap-1.5">
+              <svg class="h-3.5 w-3.5 shrink-0 text-bendey-navy" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.172l6.879-6.879a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              {{ item }}
             </span>
           </div>
         </div>
@@ -81,7 +71,7 @@ function appImage(app) {
     </div>
 
     <!-- Listado de apps -->
-    <section class="relative bg-slate-50 px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <section id="apps-disponibles" class="relative bg-slate-50 px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
       <div class="mx-auto max-w-6xl">
         <div v-if="loading" class="flex justify-center py-24">
           <div class="h-12 w-12 animate-spin rounded-full border-4 border-bendey-gray-border border-t-bendey-gold" />
@@ -103,105 +93,92 @@ function appImage(app) {
           </button>
         </div>
 
-        <div v-else class="space-y-10">
+        <!-- 2 columnas lado a lado en desktop: antes cada app ocupaba el ancho
+             completo y había que bajar mucho para llegar a la segunda. -->
+        <div v-else class="grid gap-6 lg:grid-cols-2 lg:items-start">
           <article
             v-for="(app, index) in visibleApplications"
             :key="app.code || app.name"
-            class="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-bendey-gray-border"
+            class="@container overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-bendey-gray-border"
           >
-            <div class="relative bg-bendey-navy px-6 py-8 sm:px-10 sm:py-10">
-              <div class="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-                <div class="flex items-start gap-5">
-                  <div
-                    v-if="appImage(app)"
-                    class="h-24 w-24 shrink-0 overflow-hidden rounded-2xl ring-2 ring-bendey-gold/50 sm:h-28 sm:w-28"
-                  >
-                    <img :src="appImage(app)" :alt="app.name" class="h-full w-full object-cover" />
-                  </div>
-                  <div
-                    v-else
-                    class="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-bendey-navy-mid text-4xl ring-2 ring-white/20 sm:h-28 sm:w-28"
-                  >
-                    {{ appVisual(app.code).emoji }}
-                  </div>
-                  <div>
+            <div class="relative bg-bendey-navy px-6 py-7 sm:px-8">
+              <div class="flex items-start gap-4">
+                <div
+                  v-if="appImage(app)"
+                  class="h-16 w-16 shrink-0 overflow-hidden rounded-2xl ring-2 ring-bendey-gold/50"
+                >
+                  <img :src="appImage(app)" :alt="app.name" class="h-full w-full object-cover" />
+                </div>
+                <div
+                  v-else
+                  class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-bendey-navy-mid text-3xl ring-2 ring-white/20"
+                >
+                  {{ appVisual(app.code).emoji }}
+                </div>
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-center gap-2">
                     <span class="text-xs font-bold uppercase tracking-wider text-white/80">
                       {{ appVisual(app.code).tag }}
                     </span>
-                    <h2 class="mt-1 text-2xl font-extrabold text-white sm:text-3xl">{{ app.name }}</h2>
-                    <p v-if="app.description" class="mt-2 max-w-xl whitespace-pre-line text-sm leading-relaxed text-white/90 sm:text-base">
-                      {{ app.description }}
-                    </p>
-                    <div v-if="ctasFor(app).length" class="mt-5 flex flex-wrap gap-3">
-                      <a
-                        v-for="cta in ctasFor(app)"
-                        :key="cta.key"
-                        :href="cta.href"
-                        :download="cta.download || undefined"
-                        :target="cta.external ? '_blank' : undefined"
-                        :rel="cta.external ? 'noopener noreferrer' : undefined"
-                        class="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold shadow-md transition"
-                        :class="
-                          cta.variant === 'direct'
-                            ? 'bg-bendey-gold text-bendey-navy hover:bg-bendey-gold-dark'
-                            : 'border border-white/30 bg-white/10 text-white hover:bg-white/20'
-                        "
-                      >
-                        {{ cta.label }}
-                      </a>
-                    </div>
-                    <ul class="mt-4 flex flex-wrap gap-2">
-                      <li
-                        v-for="perk in appVisual(app.code).perks"
-                        :key="perk"
-                        class="rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white backdrop-blur"
-                      >
-                        {{ perk }}
-                      </li>
-                    </ul>
+                    <span
+                      v-if="index === 0"
+                      class="rounded-full bg-bendey-gold/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-bendey-gold"
+                    >
+                      Recomendado
+                    </span>
                   </div>
-                </div>
-                <div
-                  v-if="index === 0"
-                  class="shrink-0 rounded-2xl bg-white/10 px-5 py-4 text-center backdrop-blur ring-1 ring-white/20"
-                >
-                  <p class="text-xs font-semibold uppercase tracking-wide text-white/70">Recomendado</p>
-                  <p class="mt-1 text-lg font-bold text-white">Prueba hoy</p>
+                  <h2 class="mt-0.5 text-xl font-extrabold text-white sm:text-2xl">{{ app.name }}</h2>
                 </div>
               </div>
+
+              <p v-if="app.description" class="mt-4 whitespace-pre-line text-sm leading-relaxed text-white/90">
+                {{ app.description }}
+              </p>
+
+              <ul class="mt-4 flex flex-wrap gap-2">
+                <li
+                  v-for="perk in appVisual(app.code).perks"
+                  :key="perk"
+                  class="rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white backdrop-blur"
+                >
+                  {{ perk }}
+                </li>
+              </ul>
             </div>
 
-            <!-- Plataformas -->
-            <div class="grid gap-0 divide-y divide-slate-100 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-3">
+            <!-- Plataformas: por contenedor (no por viewport), así se mantienen 2
+                 columnas lado a lado apenas la tarjeta tiene ancho suficiente, sin
+                 depender de cuántas columnas tenga la grilla de la página. -->
+            <div class="grid grid-cols-1 divide-y divide-slate-100 @sm:grid-cols-2 @sm:divide-x @sm:divide-y-0">
               <div
                 v-for="row in rowsFor(app)"
                 :key="row.key"
-                class="flex flex-col p-6 sm:p-8"
+                class="flex flex-col p-5 sm:p-6"
               >
-                <div class="mb-4 flex items-center gap-3">
+                <div class="mb-3 flex items-center gap-3">
                   <span
-                    class="flex h-11 w-11 items-center justify-center rounded-xl text-xl"
+                    class="flex h-9 w-9 items-center justify-center rounded-xl text-lg"
                     :class="`bg-gradient-to-br ${row.meta.accent} text-white shadow-md`"
                   >
                     {{ row.meta.icon }}
                   </span>
-                  <div>
+                  <div class="min-w-0">
                     <h3 class="font-bold text-slate-900">{{ row.meta.label }}</h3>
-                    <p class="text-xs text-slate-500">{{ row.meta.hint }}</p>
+                    <p class="truncate text-xs text-slate-500">{{ row.meta.hint }}</p>
                   </div>
                   <span
                     v-if="row.direct?.version"
-                    class="ml-auto rounded-full bg-bendey-gold/20 px-2.5 py-0.5 text-xs font-semibold text-bendey-gold"
+                    class="ml-auto shrink-0 rounded-full bg-bendey-gold/20 px-2.5 py-0.5 text-xs font-semibold text-bendey-gold"
                   >
                     v{{ row.direct.version }}
                   </span>
                 </div>
 
-                <div class="mt-auto space-y-3">
+                <div class="mt-auto space-y-2.5">
                   <a
                     v-if="row.direct"
                     :href="row.direct.href"
-                    class="flex w-full items-center justify-center gap-2 rounded-xl bg-bendey-navy px-5 py-3.5 text-sm font-bold text-white shadow-lg transition hover:bg-bendey-navy-mid"
+                    class="flex w-full items-center justify-center gap-2 rounded-xl bg-bendey-navy px-4 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-bendey-navy-mid"
                     :download="row.key === 'windows' || row.key === 'android'"
                   >
                     <svg viewBox="0 0 20 20" class="h-5 w-5" aria-hidden="true">
@@ -222,7 +199,7 @@ function appImage(app) {
                     :href="row.store.href"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-bendey-gray-border bg-white px-5 py-3 text-sm font-semibold text-bendey-navy transition hover:border-bendey-gold"
+                    class="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-bendey-gray-border bg-white px-4 py-2.5 text-sm font-semibold text-bendey-navy transition hover:border-bendey-gold"
                   >
                     {{ row.store.label }}
                   </a>

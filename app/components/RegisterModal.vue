@@ -181,9 +181,9 @@ async function submit() {
         <div class="sticky top-0 z-10 flex items-center justify-between border-b border-slate-100 bg-white px-6 py-4">
           <div class="min-w-0">
             <h2 class="text-lg font-bold text-slate-900">Registra tu empresa</h2>
-            <p v-if="effectivePlan" class="text-sm text-violet-700">
+            <p v-if="effectivePlan" class="text-sm text-bendey-navy-mid">
               Plan: <strong>{{ effectivePlan.name }}</strong>
-              <span class="text-violet-500"> · {{ formatPlanPrice(effectivePlan) }}</span>
+              <span class="text-bendey-navy/60"> · {{ formatPlanPrice(effectivePlan) }}</span>
             </p>
             <p v-else class="text-sm text-amber-600">No hay planes disponibles. Contacta a soporte.</p>
           </div>
@@ -223,29 +223,29 @@ async function submit() {
           </div>
           <h3 class="mb-1 text-xl font-bold text-slate-900">¡Tu empresa está lista!</h3>
           <p class="mb-1 text-sm text-slate-500">{{ success.name }} fue registrada correctamente</p>
-          <p v-if="success.plan" class="mb-6 text-sm text-violet-600">
+          <p v-if="success.plan" class="mb-6 text-sm text-bendey-navy-mid">
             Plan activo: <strong>{{ success.plan }}</strong>
           </p>
           <div v-else class="mb-6" />
 
           <!-- Tarjeta de acceso — siempre visible -->
-          <div class="mb-5 rounded-2xl border-2 border-violet-200 bg-violet-50 p-5">
-            <p class="mb-0.5 text-xs font-semibold uppercase tracking-widest text-violet-400">Tu panel de gestión</p>
-            <p class="mb-3 break-all font-mono text-sm font-bold text-violet-800">
+          <div class="mb-5 rounded-2xl border-2 border-bendey-gold/40 bg-bendey-gold/10 p-5">
+            <p class="mb-0.5 text-xs font-semibold uppercase tracking-widest text-bendey-navy/60">Tu panel de gestión</p>
+            <p class="mb-3 break-all font-mono text-sm font-bold text-bendey-navy">
               {{ success.tenant_url || `https://${success.slug}.bendey.cloud` }}
             </p>
             <a
               :href="success.tenant_url || `https://${success.slug}.bendey.cloud`"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-violet-600 px-6 py-3.5 text-base font-bold text-white shadow-md shadow-violet-200 transition hover:bg-violet-700 active:scale-95"
+              class="inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-bendey-navy px-6 py-3.5 text-base font-bold text-white shadow-md shadow-[0_10px_25px_-8px_rgba(15,39,68,0.35)] transition hover:bg-bendey-navy-mid active:scale-95"
             >
               <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
               Ir a mi negocio
             </a>
-            <p class="mt-2 text-xs text-violet-400">Redirigiendo automáticamente en unos segundos…</p>
+            <p class="mt-2 text-xs text-bendey-navy/60">Redirigiendo automáticamente en unos segundos…</p>
           </div>
 
           <!-- Correo de acceso -->
@@ -273,8 +273,8 @@ async function submit() {
                 type="button"
                 class="flex items-start justify-between gap-2 rounded-xl border-2 px-3.5 py-3 text-left transition"
                 :class="selectedPlanId === p.id
-                  ? 'border-violet-500 bg-violet-50 ring-2 ring-violet-100'
-                  : 'border-slate-200 bg-white hover:border-violet-200 hover:bg-slate-50'"
+                  ? 'border-bendey-navy bg-bendey-gold/10 ring-2 ring-bendey-gold/30'
+                  : 'border-slate-200 bg-white hover:border-bendey-gold/40 hover:bg-slate-50'"
                 @click="selectedPlanId = p.id"
               >
                 <div class="min-w-0">
@@ -282,7 +282,7 @@ async function submit() {
                   <p v-if="p.description" class="mt-0.5 line-clamp-2 text-xs text-slate-500">{{ p.description }}</p>
                 </div>
                 <div class="shrink-0 text-right">
-                  <p class="text-sm font-bold" :class="selectedPlanId === p.id ? 'text-violet-700' : 'text-slate-700'">
+                  <p class="text-sm font-bold" :class="selectedPlanId === p.id ? 'text-bendey-navy-mid' : 'text-slate-700'">
                     {{ formatPlanPrice(p) }}
                   </p>
                   <p v-if="p.is_default_signup && !plan" class="mt-0.5 text-[10px] text-emerald-600">Incluido</p>
@@ -307,7 +307,7 @@ async function submit() {
                   inputmode="numeric"
                   maxlength="11"
                   placeholder="20123456789"
-                  class="w-full rounded-lg border px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100 pr-8"
+                  class="w-full rounded-lg border px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-bendey-navy focus:ring-2 focus:ring-bendey-navy/10 pr-8"
                   :class="rucError ? 'border-red-400 bg-red-50' : rucData ? 'border-green-400 bg-green-50' : 'border-slate-300'"
                   :disabled="rucValidating"
                   @input="onRucInput"
@@ -328,7 +328,7 @@ async function submit() {
                 class="shrink-0 rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:opacity-50"
                 :class="rucData
                   ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                  : 'bg-violet-600 text-white hover:bg-violet-700'"
+                  : 'bg-bendey-navy text-white hover:bg-bendey-navy-mid'"
                 @click="validateRUC"
               >
                 <span v-if="rucValidating" class="flex items-center gap-1.5">
@@ -363,7 +363,7 @@ async function submit() {
                 v-model="form.nombreComercial"
                 type="text"
                 placeholder="Nombre que aparecerá en el sistema"
-                class="w-full rounded-lg border px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+                class="w-full rounded-lg border px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-bendey-navy focus:ring-2 focus:ring-bendey-navy/10"
                 :class="fieldError.nombreComercial ? 'border-red-400' : 'border-slate-300'"
               >
               <p v-if="fieldError.nombreComercial" class="mt-1 text-xs text-red-500">{{ fieldError.nombreComercial }}</p>
@@ -376,7 +376,7 @@ async function submit() {
                 v-model="form.address"
                 type="text"
                 placeholder="Dirección de tu empresa"
-                class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-bendey-navy focus:ring-2 focus:ring-bendey-navy/10"
               >
             </div>
 
@@ -387,7 +387,7 @@ async function submit() {
                 v-model="form.email"
                 type="email"
                 placeholder="contacto@miempresa.com"
-                class="w-full rounded-lg border px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+                class="w-full rounded-lg border px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-bendey-navy focus:ring-2 focus:ring-bendey-navy/10"
                 :class="fieldError.email ? 'border-red-400' : 'border-slate-300'"
               >
               <p v-if="fieldError.email" class="mt-1 text-xs text-red-500">{{ fieldError.email }}</p>
@@ -400,7 +400,7 @@ async function submit() {
                 v-model="form.phone"
                 type="tel"
                 placeholder="999 000 000"
-                class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-bendey-navy focus:ring-2 focus:ring-bendey-navy/10"
               >
             </div>
 
@@ -412,7 +412,7 @@ async function submit() {
                   v-model="form.password"
                   :type="showPassword ? 'text' : 'password'"
                   placeholder="Mínimo 6 caracteres"
-                  class="w-full rounded-lg border px-3 py-2.5 pr-10 text-sm text-slate-900 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+                  class="w-full rounded-lg border px-3 py-2.5 pr-10 text-sm text-slate-900 outline-none focus:border-bendey-navy focus:ring-2 focus:ring-bendey-navy/10"
                   :class="fieldError.password ? 'border-red-400' : 'border-slate-300'"
                 >
                 <button
@@ -440,7 +440,7 @@ async function submit() {
                   v-model="form.passwordConfirm"
                   :type="showPasswordConfirm ? 'text' : 'password'"
                   placeholder="Repite tu contraseña"
-                  class="w-full rounded-lg border px-3 py-2.5 pr-10 text-sm text-slate-900 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+                  class="w-full rounded-lg border px-3 py-2.5 pr-10 text-sm text-slate-900 outline-none focus:border-bendey-navy focus:ring-2 focus:ring-bendey-navy/10"
                   :class="fieldError.passwordConfirm ? 'border-red-400' : 'border-slate-300'"
                 >
                 <button
@@ -465,7 +465,7 @@ async function submit() {
               <label class="mb-1.5 block text-sm font-medium text-slate-700">Tipo de negocio</label>
               <select
                 v-model="form.rubro"
-                class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+                class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-bendey-navy focus:ring-2 focus:ring-bendey-navy/10"
               >
                 <option value="general">General (comercio, servicios, etc.)</option>
                 <option value="gastronomico">Gastronómico (restaurante, cafetería, etc.)</option>
@@ -475,7 +475,7 @@ async function submit() {
             <button
               type="submit"
               :disabled="submitting || !effectivePlan"
-              class="w-full rounded-lg bg-violet-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-violet-700 disabled:opacity-60"
+              class="w-full rounded-lg bg-bendey-navy px-6 py-3 text-sm font-semibold text-white transition hover:bg-bendey-navy-mid disabled:opacity-60"
             >
               <span v-if="submitting" class="flex items-center justify-center gap-2">
                 <svg class="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -484,7 +484,7 @@ async function submit() {
                 </svg>
                 Creando tu empresa...
               </span>
-              <span v-else>Registrar empresa y acceder →</span>
+              <span v-else>Registrar empresa y acceder</span>
             </button>
           </div>
 
