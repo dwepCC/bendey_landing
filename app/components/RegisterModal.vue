@@ -55,7 +55,7 @@ const form = ref({
   address: '',
   password: '',
   passwordConfirm: '',
-  rubro: 'general',
+  rubro: '',
 })
 const showPassword = ref(false)
 const showPasswordConfirm = ref(false)
@@ -74,7 +74,7 @@ function resetAll() {
   rucError.value = ''
   rucValidating.value = false
   rucData.value = null
-  form.value = { nombreComercial: '', email: '', phone: '', address: '', password: '', passwordConfirm: '', rubro: 'general' }
+  form.value = { nombreComercial: '', email: '', phone: '', address: '', password: '', passwordConfirm: '', rubro: '' }
   showPassword.value = false
   showPasswordConfirm.value = false
   fieldError.value = {}
@@ -114,6 +114,7 @@ async function validateRUC() {
 
 function validateForm() {
   const errs = {}
+  if (!form.value.rubro) errs.rubro = 'Elige el tipo de negocio'
   if (!form.value.nombreComercial.trim()) errs.nombreComercial = 'El nombre de la empresa es requerido'
   if (!form.value.email.trim() || !form.value.email.includes('@')) errs.email = 'Correo electrónico inválido'
   if (form.value.password.length < 6) errs.password = 'La contraseña debe tener al menos 6 caracteres'
@@ -158,8 +159,12 @@ async function submit() {
       currency: 'PEN',
       value: Number(effectivePlan.value?.price) || 0,
     })
-    const dest = res.tenant_url || `https://${res.slug}.bendey.cloud`
-    setTimeout(() => { window.location.href = dest }, 4000)
+    // Un restaurante trabaja desde la app Bendey Resto, no desde el panel web: no lo redirigimos
+    // (además el PIN inicial se muestra una sola vez y debe poder anotarse).
+    if (form.value.rubro !== 'gastronomico') {
+      const dest = res.tenant_url || `https://${res.slug}.bendey.cloud`
+      setTimeout(() => { window.location.href = dest }, 4000)
+    }
   } catch (e) {
     apiError.value = e.message
   } finally {
@@ -228,8 +233,24 @@ async function submit() {
           </p>
           <div v-else class="mb-6" />
 
+          <!-- Restaurante: PIN inicial (se muestra una sola vez) y descarga de la app -->
+          <div v-if="form.rubro === 'gastronomico'" class="mb-5 rounded-2xl border-2 border-bendey-gold/40 bg-bendey-gold/10 p-5">
+            <p v-if="success.initial_pin" class="mb-3 text-sm text-slate-700">
+              Tu PIN de acceso para cocina y mozos:
+              <strong class="ml-1 font-mono text-lg tracking-widest text-bendey-navy">{{ success.initial_pin }}</strong>
+              <span class="mt-1 block text-xs text-slate-500">Anótalo ahora: no volveremos a mostrarlo. Puedes cambiarlo desde la app.</span>
+            </p>
+            <NuxtLink
+              to="/apps"
+              class="inline-flex w-full items-center justify-center rounded-xl bg-bendey-navy px-6 py-3.5 text-base font-bold text-white transition hover:bg-bendey-navy-mid active:scale-95"
+            >
+              Descargar Bendey Resto
+            </NuxtLink>
+            <p class="mt-2 text-xs text-bendey-navy/60">Entra con el correo y la contraseña que acabas de crear.</p>
+          </div>
+
           <!-- Tarjeta de acceso — siempre visible -->
-          <div class="mb-5 rounded-2xl border-2 border-bendey-gold/40 bg-bendey-gold/10 p-5">
+          <div v-else class="mb-5 rounded-2xl border-2 border-bendey-gold/40 bg-bendey-gold/10 p-5">
             <p class="mb-0.5 text-xs font-semibold uppercase tracking-widest text-bendey-navy/60">Tu panel de gestión</p>
             <p class="mb-3 break-all font-mono text-sm font-bold text-bendey-navy">
               {{ success.tenant_url || `https://${success.slug}.bendey.cloud` }}
@@ -262,6 +283,37 @@ async function submit() {
           <div v-if="apiError" class="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
             {{ apiError }}
           </div>
+
+          <!-- Rubro primero: define el destino (restaurante → app Bendey Resto) -->
+          <div>
+            <label class="mb-2 block text-sm font-semibold text-slate-700">¿Qué tipo de negocio tienes?</label>
+            <div class="grid gap-2 sm:grid-cols-2">
+              <button
+                type="button"
+                class="rounded-xl border-2 px-3.5 py-3 text-left transition"
+                :class="form.rubro === 'gastronomico' ? 'border-bendey-navy bg-bendey-gold/10 ring-2 ring-bendey-gold/30' : 'border-slate-200 bg-white hover:border-bendey-gold/40 hover:bg-slate-50'"
+                @click="form.rubro = 'gastronomico'"
+              >
+                <p class="text-sm font-semibold text-slate-900">Restaurante, cafetería o bar</p>
+                <p class="mt-0.5 text-xs text-slate-500">Usarás la app Bendey Resto</p>
+              </button>
+              <button
+                type="button"
+                class="rounded-xl border-2 px-3.5 py-3 text-left transition"
+                :class="form.rubro === 'general' ? 'border-bendey-navy bg-bendey-gold/10 ring-2 ring-bendey-gold/30' : 'border-slate-200 bg-white hover:border-bendey-gold/40 hover:bg-slate-50'"
+                @click="form.rubro = 'general'"
+              >
+                <p class="text-sm font-semibold text-slate-900">Tienda u otro comercio</p>
+                <p class="mt-0.5 text-xs text-slate-500">Usarás el panel web</p>
+              </button>
+            </div>
+            <p v-if="fieldError.rubro" class="mt-1 text-xs text-red-500">{{ fieldError.rubro }}</p>
+          </div>
+
+          <p v-if="form.rubro === 'gastronomico'" class="rounded-lg bg-slate-50 px-3 py-2 text-xs text-slate-600">
+            Tu restaurante se maneja desde la app <strong>Bendey Resto</strong> (Windows y Android). Créalo aquí y después
+            <NuxtLink to="/apps" class="font-semibold text-bendey-navy underline">descarga la app</NuxtLink>.
+          </p>
 
           <!-- Selector de plan -->
           <div v-if="sortedPlans.length">
@@ -458,18 +510,6 @@ async function submit() {
                 </button>
               </div>
               <p v-if="fieldError.passwordConfirm" class="mt-1 text-xs text-red-500">{{ fieldError.passwordConfirm }}</p>
-            </div>
-
-            <!-- Rubro -->
-            <div class="mb-5">
-              <label class="mb-1.5 block text-sm font-medium text-slate-700">Tipo de negocio</label>
-              <select
-                v-model="form.rubro"
-                class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-bendey-navy focus:ring-2 focus:ring-bendey-navy/10"
-              >
-                <option value="general">General (comercio, servicios, etc.)</option>
-                <option value="gastronomico">Gastronómico (restaurante, cafetería, etc.)</option>
-              </select>
             </div>
 
             <button
