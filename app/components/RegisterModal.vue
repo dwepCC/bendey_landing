@@ -148,6 +148,8 @@ async function submit() {
         password: form.value.password,
         plan_id: effectivePlan.value?.id || 0,
         referral_code: refCode,
+        // Obligatorio en el backend (D1). La landing solo registra empresas peruanas: valida el RUC con SUNAT.
+        country: 'PE',
       }),
     })
     success.value = res
